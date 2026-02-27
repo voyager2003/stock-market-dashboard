@@ -1,0 +1,31 @@
+.stockCard {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.stockCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.symbol { font-size: 1.2rem; font-weight: 800; letter-spacing: 0.5px; }
+.price  { font-size: 1.5rem; font-weight: 700; margin-top: 0.25rem; }
+
+.watchBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #d1d5db;
+  transition: color 0.2s, transform 0.2s;
+}
+.watchBtn:hover { transform: scale(1.2); }
+.inList { color: #f59e0b; }
+
+.stats { margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem; }
+.meta  { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--text-muted); }

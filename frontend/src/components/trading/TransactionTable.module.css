@@ -1,0 +1,10 @@
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.actionBtns {
+  display: flex;
+  gap: 0.4rem;
+}

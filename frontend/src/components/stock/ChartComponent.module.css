@@ -1,0 +1,11 @@
+.chartWrapper { width: 100%; }
+
+.tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-size: 0.85rem;
+}
+.tooltipDate { color: var(--text-muted); margin-bottom: 0.25rem; }
