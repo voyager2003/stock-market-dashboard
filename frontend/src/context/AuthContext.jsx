@@ -45,8 +45,16 @@ export const AuthProvider = ({ children }) => {
     })
   }
 
+  const updateBalance = (balance) => {
+    setUser((prev) => {
+      const updated = { ...prev, balance }
+      localStorage.setItem('stockUser', JSON.stringify(updated))
+      return updated
+    })
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading, updateWatchlist }}>
+    <AuthContext.Provider value={{ user, login, logout, loading, updateWatchlist, updateBalance }}>
       {children}
     </AuthContext.Provider>
   )

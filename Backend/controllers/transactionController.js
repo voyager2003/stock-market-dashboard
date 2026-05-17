@@ -8,6 +8,14 @@ const createTransaction = async (req, res) => {
   const { symbol, type, quantity, price } = req.body;
   try {
     const total = quantity * price;
+    const user = await User.findById(req.user._id);
+    
+    // Check balance for buy orders
+    if (type === 'buy' && user.balance < total) {
+      return res.status(400).json({ message: 'Insufficient balance for this purchase' });
+    }
+
+    // Create and auto-approve transaction
     const transaction = await Transaction.create({
       user:     req.user._id,
       username: req.user.username,
@@ -16,9 +24,18 @@ const createTransaction = async (req, res) => {
       quantity,
       price,
       total,
-      status: 'pending',
+      status: 'approved',  // Auto-approve instead of pending
     });
-    res.status(201).json(transaction);
+
+    // Update user balance immediately
+    if (type === 'buy') {
+      user.balance -= total;  // deduct for buy
+    } else {
+      user.balance += total;  // credit for sell
+    }
+    await user.save();
+
+    res.status(201).json({ transaction, balance: user.balance });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

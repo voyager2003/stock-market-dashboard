@@ -8,7 +8,7 @@ import styles from './StockDetailsPage.module.css'
 export default function StockDetailsPage() {
   const { symbol }   = useParams()
   const navigate     = useNavigate()
-  const { user, updateWatchlist } = useAuth()
+  const { user, updateWatchlist, updateBalance } = useAuth()
 
   const [quote, setQuote]         = useState(null)
   const [history, setHistory]     = useState([])
@@ -55,14 +55,15 @@ export default function StockDetailsPage() {
     setSubmitting(true)
     setTradeMsg({ text: '', type: '' })
     try {
-      await transactionAPI.create({
+      const { data } = await transactionAPI.create({
         symbol,
         type:     tradeForm.type,
         quantity: parseInt(tradeForm.quantity),
         price:    quote.price,
       })
+      updateBalance(data.balance)
       setTradeMsg({
-        text: `${tradeForm.type.toUpperCase()} request submitted! Pending admin approval.`,
+        text: `${tradeForm.type.toUpperCase()} order for ${tradeForm.quantity} shares executed successfully!`,
         type: 'success',
       })
     } catch (err) {
